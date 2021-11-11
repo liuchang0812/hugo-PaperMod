@@ -1,1 +1,6 @@
-<img loading="lazy" src="{{ .Destination | safeURL }}" alt="{{ .Text }}" {{ with .Title}} title="{{ . }}" {{ end }} />
+{{- $img_destination := .Destination }}
+{{ if .Page.Site.Params.CDN.enable }}
+    {{ $img_destination = (print .Page.Site.Params.CDN.HOST (path.Join .Page.RelPermalink .Destination)) }}
+{{ end }}
+
+<img loading="lazy" src="{{ $img_destination | safeURL }}" alt="{{ .Text }}" {{ with .Title}} title="{{ . }}" {{ end }} />
